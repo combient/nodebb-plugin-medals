@@ -17,15 +17,15 @@ plugin.init = async (params) => {
 	 *
 	 * Other helpers include `setupAdminPageRoute` and `setupAPIRoute`
 	 * */
-	routeHelpers.setupPageRoute(router, '/quickstart', middleware, [(req, res, next) => {
-		winston.info(`[plugins/quickstart] In middleware. This argument can be either a single middleware or an array of middlewares`);
+	routeHelpers.setupPageRoute(router, '/medals', middleware, [(req, res, next) => {
+		winston.info(`[plugins/medals] In middleware. This argument can be either a single middleware or an array of middlewares`);
 		setImmediate(next);
 	}], (req, res) => {
-		winston.info(`[plugins/quickstart] Navigated to ${nconf.get('relative_path')}/quickstart`);
-		res.render('quickstart', { uid: req.uid });
+		winston.info(`[plugins/medals] Navigated to ${nconf.get('relative_path')}/medals`);
+		res.render('medals', { uid: req.uid });
 	});
 
-	routeHelpers.setupAdminPageRoute(router, '/admin/plugins/quickstart', middleware, [], controllers.renderAdminPage);
+	routeHelpers.setupAdminPageRoute(router, '/admin/plugins/medals', middleware, [], controllers.renderAdminPage);
 };
 
 /**
@@ -39,7 +39,7 @@ plugin.init = async (params) => {
  *
  * To call this example route:
  *   curl -X GET \
- * 		http://example.org/api/v3/plugins/quickstart/test \
+ * 		http://example.org/api/v3/plugins/medals/test \
  * 		-H "Authorization: Bearer some_valid_bearer_token"
  *
  * Will yield the following response JSON:
@@ -59,7 +59,7 @@ plugin.addRoutes = async ({ router, middleware, helpers }) => {
 		// middleware.admin.checkPrivileges,	// use this to restrict the route to administrators
 	];
 
-	routeHelpers.setupApiRoute(router, 'get', '/quickstart/:param1', middlewares, (req, res) => {
+	routeHelpers.setupApiRoute(router, 'get', '/medals/:param1', middlewares, (req, res) => {
 		helpers.formatApiResponse(200, res, {
 			foobar: req.params.param1,
 		});
@@ -68,9 +68,9 @@ plugin.addRoutes = async ({ router, middleware, helpers }) => {
 
 plugin.addAdminNavigation = (header) => {
 	header.plugins.push({
-		route: '/plugins/quickstart',
+		route: '/plugins/medals',
 		icon: 'fa-tint',
-		name: 'Quickstart',
+		name: 'Medals',
 	});
 
 	return header;

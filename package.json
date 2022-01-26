@@ -1,16 +1,16 @@
 {
-  "name": "nodebb-plugin-quickstart",
-  "version": "0.4.2",
-  "description": "A starter kit for quickly creating NodeBB plugins",
+  "name": "nodebb-plugin-medals",
+  "version": "0.1.0",
+  "description": "A NodeBB plugin which allows medals to be handed out to users.",
   "main": "library.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/psychobunny/nodebb-plugin-quickstart"
+    "url": "https://github.com/combient/nodebb-plugin-medals"
   },
   "keywords": [
     "nodebb",
     "plugin",
-    "quickstart",
+    "medals",
     "shell"
   ],
   "husky": {
@@ -25,13 +25,9 @@
       "git add"
     ]
   },
-  "author": {
-    "name": "psychobunny",
-    "email": "psycho.bunny@hotmail.com"
-  },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/psychobunny/nodebb-plugin-quickstart/issues"
+    "url": "https://github.com/combient/nodebb-plugin-medals/issues"
   },
   "readmeFilename": "README.md",
   "nbbpm": {

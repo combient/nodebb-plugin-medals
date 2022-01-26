@@ -1,6 +1,6 @@
 {
-	"id": "nodebb-plugin-quickstart",
-	"url": "https://github.com/NodeBB/nodebb-plugin-quickstart",
+	"id": "nodebb-plugin-medals",
+	"url": "https://github.com/combient/nodebb-plugin-medals",
 	"library": "./library.js",
 	"hooks": [
 		{
@@ -26,7 +26,7 @@
 		"static/lib/admin.js"
 	],
 	"modules": {
-		"../client/quickstart.js": "./static/lib/quickstart.js"
+		"../client/medals.js": "./static/lib/medals.js"
 	},
 	"templates": "static/templates"
 }

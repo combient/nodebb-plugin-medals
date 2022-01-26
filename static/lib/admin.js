@@ -1,21 +1,21 @@
 'use strict';
 
-define('admin/plugins/quickstart', ['settings', 'uploader'], function (settings, uploader) {
+define('admin/plugins/medals', ['settings', 'uploader'], function (settings, uploader) {
 	var ACP = {};
 
 	ACP.init = function () {
 		setupUploader();
-		settings.load('quickstart', $('.quickstart-settings'), function () {
+		settings.load('medals', $('.medals-settings'), function () {
 			setupColorInputs();
 		});
 		$('#save').on('click', saveSettings);
 	};
 
 	function saveSettings() {
-		settings.save('quickstart', $('.quickstart-settings'), function () {
+		settings.save('medals', $('.medals-settings'), function () {
 			app.alert({
 				type: 'success',
-				alert_id: 'quickstart-saved',
+				alert_id: 'medals-saved',
 				title: 'Settings Saved',
 				message: 'Please reload your NodeBB to apply these settings',
 				clickfn: function () {
@@ -45,7 +45,7 @@ define('admin/plugins/quickstart', ['settings', 'uploader'], function (settings,
 				uploader.show({
 					route: config.relative_path + '/api/admin/upload/file',
 					params: {
-						folder: 'quickstart',
+						folder: 'medals',
 					},
 					accept: 'image/*',
 				}, function (image) {
