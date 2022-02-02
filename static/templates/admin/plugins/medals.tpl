@@ -16,7 +16,7 @@
 		<div class="col-sm-10 col-xs-12">
 			<div class="form-group">
 				<ul data-type="medals-list" class="list-group"></ul>
-				<button component="add-medal-btn" type="button" class="btn btn-info">Add Medal</button>
+				<button component="nodebb-plugin-medals/add-medal-btn" type="button" class="btn btn-info">Add Medal</button>
 			</div>
 		</div>
 	</div>
