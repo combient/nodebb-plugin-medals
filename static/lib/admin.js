@@ -4,34 +4,12 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 	var ACP = {};
 
 	ACP.init = function () {
-		socket.emit('admin.settings.get', {
-			hash: 'medals',
-		}, function (err, values) {
-			if (err) {
-				alerts.error('Could not load settings. Please open the console for details.', 2500);
-				console.error(err.message, err);
-				return;
-			}
-			loadSettings(values);
-
-			setupInteraction();
-			setupColorInputs();
-		});
+		setupIconSelectors();
+		setupColorInputs();
+		setupInteraction();
 
 		$('#save').on('click', saveSettings);
 	};
-
-	function loadSettings(data) {
-		if (data.medals) {
-			app.parseAndTranslate('admin/plugins/partials/medals-list/list', { medals: data.medals }, (html) => {
-				const $listItems = $(html);
-				$('[data-type="medals-list"]').append($listItems);
-				setupIconSelectors();
-				setupColorInputs();
-				setupInteraction();
-			});
-		}
-	}
 
 	function collectSettings() {
 		const collectedSettings = {
@@ -43,6 +21,8 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 
 			const name = $item.find('[name="name"]').val();
 			const uuid = $item.find('[name="uuid"]').val();
+			const addedByUid = parseInt($item.find('[name="addedByUid"]').val(), 10);
+			const timestamp = $item.find('[name="timestamp"]').val();
 			const description = $item.find('[name="description"]').val();
 			const className = $item.find('[name="className"]').val();
 			const icon = $item.find('[name="icon"]').val();
@@ -57,6 +37,8 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 				icon,
 				medalColor,
 				iconColor,
+				addedByUid,
+				timestamp,
 			};
 
 			if (!name || !description || !icon || !uuid) {
@@ -95,6 +77,8 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 				uuid: utils.generateUUID(),
 				iconColor: '#ffffff',
 				medalColor: '#000000',
+				addedByUid: config.uid,
+				timestamp: Date.now(),
 			}, (html) => {
 				const $listItem = $(html);
 				$('[data-type="medals-list"]').append($listItem);

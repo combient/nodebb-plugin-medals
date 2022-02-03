@@ -16,7 +16,10 @@
             <div class="form-group">
                 <label>Icon*: </label>
                 <input type="hidden" value="{../icon}" name="icon" />
-                <button type="button" class="medal-icon"><i class="fa {{{ if ../icon }}}{../icon}{{{ else }}}fa-nbb-none{{{ endif }}}" value="{../icon}"></i></button>
+                <button type="button" class="medal-icon" style="
+                    color: {{{ if ../iconColor }}}{../iconColor}{{{ else }}}#fff{{{ endif }}};
+                    background-color: {{{ if ../medalColor }}}{../medalColor}{{{ else }}}#fff{{{ endif }}};
+                "><i class="fa {{{ if ../icon }}}{../icon}{{{ else }}}fa-nbb-none{{{ endif }}}" value="{../icon}"></i></button>
             </div>
             <div class="form-group">
                 <label for="iconColor">Icon color</label>
@@ -29,6 +32,8 @@
         </div>
         <div class="col-xs-3 text-right">
             <input type="hidden" name="uuid" value="{../uuid}" />
+            <input type="hidden" name="addedByUid" value="{../addedByUid}" />
+            <input type="hidden" name="timestamp" value="{../timestamp}" />
             <button type="button" class="btn btn-danger" component="nodebb-plugin-medals/delete-medal"><i class="fa fa-trash"></i></button>
         </div>
     </div>
