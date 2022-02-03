@@ -72,7 +72,6 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 	function saveSettings() {
 		try {
 			const values = collectSettings();
-			console.log('🚀 ~ file: admin.js ~ line 25 ~ saveSettings ~ values', values);
 
 			socket.emit('admin.settings.set', {
 				hash: 'medals',
@@ -132,8 +131,8 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 	}
 
 	function setupColorInputs() {
-		$('[data-type="item"]').each((index, element) => {
-			const $colorInput = $(element).find('[data-settings="colorpicker"]');
+		$('[data-settings="colorpicker"]').each((index, element) => {
+			const $colorInput = $(element);
 			$colorInput.off('change', updateColors).on('change', updateColors);
 			updateColors($colorInput);
 		});
