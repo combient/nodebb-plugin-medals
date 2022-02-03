@@ -11,11 +11,12 @@
             </div>
             <div class="form-group">
                 <label>Class: </label>
-                <input placeholder="ex: .btn .btn-primary" name="className" value="{../class}" />
+                <input placeholder="ex: .btn .btn-primary" name="className" value="{../className}" />
             </div>
             <div class="form-group">
                 <label>Icon*: </label>
-                <button type="button" class="medal-icon"><i class="fa fa-nbb-none" name="icon"></i></button>
+                <input type="hidden" value="{../icon}" name="icon" />
+                <button type="button" class="medal-icon"><i class="fa {{{ if ../icon }}}{../icon}{{{ else }}}fa-nbb-none{{{ endif }}}" value="{../icon}"></i></button>
             </div>
             <div class="form-group">
                 <label for="iconColor">Icon color</label>
@@ -27,7 +28,7 @@
             </div>
         </div>
         <div class="col-xs-3 text-right">
-            <input type="hidden" name="medal-id" value="{../id}" />
+            <input type="hidden" name="uuid" value="{../uuid}" />
             <button type="button" class="btn btn-danger" component="nodebb-plugin-medals/delete-medal"><i class="fa fa-trash"></i></button>
         </div>
     </div>

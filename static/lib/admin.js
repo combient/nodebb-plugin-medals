@@ -22,7 +22,15 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 	};
 
 	function loadSettings(data) {
-		console.log(data);
+		if (data.medals) {
+			app.parseAndTranslate('admin/plugins/partials/medals-list/list', { medals: data.medals }, (html) => {
+				const $listItems = $(html);
+				$('[data-type="medals-list"]').append($listItems);
+				setupIconSelectors();
+				setupColorInputs();
+				setupInteraction();
+			});
+		}
 	}
 
 	function collectSettings() {
@@ -34,24 +42,28 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 			const $item = $(element);
 
 			const name = $item.find('[name="name"]').val();
+			const uuid = $item.find('[name="uuid"]').val();
 			const description = $item.find('[name="description"]').val();
 			const className = $item.find('[name="className"]').val();
 			const icon = $item.find('[name="icon"]').val();
 			const medalColor = $item.find('[name="medalColor"]').val();
 			const iconColor = $item.find('[name="iconColor"]').val();
 
-			if (!name || !description || !icon) {
-				throw new Error('Not all required fields are filled out.');
-			}
-
-			collectedSettings.medals.push({
+			const medal = {
 				name,
+				uuid,
 				description,
 				className,
 				icon,
 				medalColor,
 				iconColor,
-			});
+			};
+
+			if (!name || !description || !icon || !uuid) {
+				throw new Error('Not all required fields are filled out.');
+			}
+
+			collectedSettings.medals.push(medal);
 		});
 
 		return collectedSettings;
@@ -80,7 +92,11 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 
 	function setupInteraction() {
 		components.get('nodebb-plugin-medals/add-medal-btn').off('click').on('click', () => {
-			app.parseAndTranslate('admin/plugins/partials/medals-list/item', {}, (html) => {
+			app.parseAndTranslate('admin/plugins/partials/medals-list/item', {
+				uuid: utils.generateUUID(),
+				iconColor: '#ffffff',
+				medalColor: '#000000',
+			}, (html) => {
 				const $listItem = $(html);
 				$('[data-type="medals-list"]').append($listItem);
 				setupIconSelectors($listItem);
@@ -91,20 +107,26 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 
 		components.get('nodebb-plugin-medals/delete-medal').off('click').on('click', (ev) => {
 			const $target = $(ev.target);
-			console.log($target);
-			const medalId = $target.siblings('[name="medal-id"]').val();
-            console.log('🚀 ~ file: admin.js ~ line 96 ~ components.get ~ medalId', medalId);
+			const $item = $target.closest('[data-type="item"]');
+
+			bootbox.confirm('Are you sure you want to remove this medal?', function (confirm) {
+				if (confirm) {
+					$item.remove();
+				}
+			});
 		});
 	}
 
 	function setupIconSelectors(newItem) {
 		const clickTarget = newItem || $('[data-type="item"]');
 		clickTarget.off('click', '.medal-icon').on('click', '.medal-icon', function () {
-			console.log(this);
-			const iconEl = $(this).find('i');
-			iconSelect.init(iconEl, function (el) {
+			const $iconEl = $(this).find('i');
+
+			iconSelect.init($iconEl, function (el) {
+				const $iconInput = $(el).parent().siblings('[name="icon"]');
 				const newIconClass = el.attr('value');
-				$(iconEl).data('icon', newIconClass);
+
+				$iconInput.val(newIconClass);
 			});
 		});
 	}
