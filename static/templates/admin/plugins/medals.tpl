@@ -1,17 +1,5 @@
 <form role="form" class="medals-settings">
 	<div class="row">
-		<div class="col-sm-2 col-xs-12 settings-header">General</div>
-		<div class="col-sm-10 col-xs-12">
-			<p class="lead">
-				Adjust these settings. You can then retrieve these settings in code via:
-				<code>const settings = await meta.settings.get('medals');</code>
-			</p>
-		</div>
-	</div>
-
-	<br />
-
-	<div class="row">
 		<div class="col-sm-2 col-xs-12 settings-header">Medals</div>
 		<div class="col-sm-10 col-xs-12">
 			<div class="form-group">

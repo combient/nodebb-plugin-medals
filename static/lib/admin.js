@@ -1,6 +1,6 @@
 'use strict';
 
-define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'components', 'alerts'], function (settings, uploader, iconSelect, components, alerts) {
+define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'components', 'alerts', 'api'], function (settings, uploader, iconSelect, components, alerts, api) {
 	var ACP = {};
 
 	ACP.init = function () {
@@ -20,28 +20,28 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 			const $item = $(element);
 
 			const name = $item.find('[name="name"]').val();
-			const uuid = $item.find('[name="uuid"]').val();
 			const addedByUid = parseInt($item.find('[name="addedByUid"]').val(), 10);
-			const timestamp = $item.find('[name="timestamp"]').val();
 			const description = $item.find('[name="description"]').val();
 			const className = $item.find('[name="className"]').val();
 			const icon = $item.find('[name="icon"]').val();
 			const medalColor = $item.find('[name="medalColor"]').val();
 			const iconColor = $item.find('[name="iconColor"]').val();
+			const uuid = $item.find('[name="uuid"]').val();
+			const timestamp = parseInt($item.find('[name="timestamp"]').val(), 10);
 
 			const medal = {
 				name,
-				uuid,
 				description,
 				className,
 				icon,
 				medalColor,
 				iconColor,
 				addedByUid,
+				uuid,
 				timestamp,
 			};
 
-			if (!name || !description || !icon || !uuid) {
+			if (!name || !description || !icon) {
 				throw new Error('Not all required fields are filled out.');
 			}
 
@@ -55,15 +55,22 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 		try {
 			const values = collectSettings();
 
-			socket.emit('admin.settings.set', {
-				hash: 'medals',
-				values,
-			}, function (err) {
+			api.put('/plugins/medals', { medals: values.medals }, (err, response) => {
 				if (err) {
-					alerts.error(err.message, 2000);
-				} else {
-					alerts.success('[[admin/admin:changes-saved]]', 2000);
+					alerts.error(err.message, 2500);
+					console.error(err);
+					return;
 				}
+				app.parseAndTranslate('admin/plugins/partials/medals-list/list', {
+					medals: response.medals,
+				}, (html) => {
+					const $listItems = $(html);
+					$('[data-type="item"]').remove();
+					$('[data-type="medals-list"]').html($listItems);
+					setupIconSelectors();
+					setupColorInputs();
+					setupInteraction();
+				});
 			});
 		} catch (error) {
 			alerts.error(error.message, 2000);
@@ -74,11 +81,9 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 	function setupInteraction() {
 		components.get('nodebb-plugin-medals/add-medal-btn').off('click').on('click', () => {
 			app.parseAndTranslate('admin/plugins/partials/medals-list/item', {
-				uuid: utils.generateUUID(),
 				iconColor: '#ffffff',
 				medalColor: '#000000',
 				addedByUid: config.uid,
-				timestamp: Date.now(),
 			}, (html) => {
 				const $listItem = $(html);
 				$('[data-type="medals-list"]').append($listItem);

@@ -1,68 +1,45 @@
 'use strict';
 
-const nconf = require.main.require('nconf');
-const winston = require.main.require('winston');
 const controllers = require('./lib/controllers');
-
-const routeHelpers = require.main.require('./src/routes/helpers');
+const api = require('./lib/api');
+const { routeHelpers } = require('./lib/nodebb');
+const MedalHelpers = require('./lib/helpers');
 
 const plugin = {};
 
 plugin.init = async (params) => {
-	const { router, middleware/* , controllers */ } = params;
-
-	/**
-	 * We create two routes for every view. One API call, and the actual route itself.
-	 * Use the `setupPageRoute` helper and NodeBB will take care of everything for you.
-	 *
-	 * Other helpers include `setupAdminPageRoute` and `setupAPIRoute`
-	 * */
-	routeHelpers.setupPageRoute(router, '/medals', middleware, [(req, res, next) => {
-		winston.info(`[plugins/medals] In middleware. This argument can be either a single middleware or an array of middlewares`);
-		setImmediate(next);
-	}], (req, res) => {
-		winston.info(`[plugins/medals] Navigated to ${nconf.get('relative_path')}/medals`);
-		res.render('medals', { uid: req.uid });
-	});
+	const { router, middleware } = params;
 
 	routeHelpers.setupAdminPageRoute(router, '/admin/plugins/medals', middleware, [], controllers.renderAdminPage);
+	routeHelpers.setupPageRoute(router, '/user/:userslug/medals', middleware, [], controllers.renderMedalsPage);
 };
 
-/**
- * If you wish to add routes to NodeBB's RESTful API, listen to the `static:api.routes` hook.
- * Define your routes similarly to above, and allow core to handle the response via the
- * built-in helpers.formatApiResponse() method.
- *
- * In this example route, the `authenticate` middleware is added, which means a valid login
- * session or bearer token (which you can create via ACP > Settings > API Access) needs to be
- * passed in.
- *
- * To call this example route:
- *   curl -X GET \
- * 		http://example.org/api/v3/plugins/medals/test \
- * 		-H "Authorization: Bearer some_valid_bearer_token"
- *
- * Will yield the following response JSON:
- * 	{
- *		"status": {
- *			"code": "ok",
- *			"message": "OK"
- *		},
- *		"response": {
- *			"foobar": "test"
- *		}
- *	}
- */
 plugin.addRoutes = async ({ router, middleware, helpers }) => {
-	const middlewares = [
-		// middleware.ensureLoggedIn,			// use this if you want only registered users to call this route
-		// middleware.admin.checkPrivileges,	// use this to restrict the route to administrators
+	routeHelpers.setupApiRoute(router, 'get', '/medals/:userslug', [], (req, res) => {
+		helpers.formatApiResponse(200, res, {
+			userslug: req.params.userslug,
+		});
+	});
+
+	const adminMiddlewares = [
+		middleware.ensureLoggedIn,
+		middleware.admin.checkPrivileges,
 	];
 
-	routeHelpers.setupApiRoute(router, 'get', '/medals/:param1', middlewares, (req, res) => {
-		helpers.formatApiResponse(200, res, {
-			foobar: req.params.param1,
-		});
+	// API routes
+	routeHelpers.setupApiRoute(router, 'get', '/medals', [], api.getMedals);
+	routeHelpers.setupApiRoute(router, 'put', '/medals', adminMiddlewares, async (req, res) => {
+		try {
+			const { medals } = req.body;
+
+			const savedMedals = await MedalHelpers.saveMedals(medals);
+
+			helpers.formatApiResponse(200, res, {
+				medals: savedMedals,
+			});
+		} catch (error) {
+			throw new Error(error.message);
+		}
 	});
 };
 
