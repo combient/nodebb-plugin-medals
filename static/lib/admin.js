@@ -53,9 +53,11 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 
 	function saveSettings() {
 		try {
+			$('#save').prop('disabled', true);
 			const values = collectSettings();
 
 			api.put('/plugins/medals', { medals: values.medals }, (err, response) => {
+				$('#save').prop('disabled', false);
 				if (err) {
 					alerts.error(err.message, 2500);
 					console.error(err);
@@ -70,6 +72,7 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 					setupIconSelectors();
 					setupColorInputs();
 					setupInteraction();
+					alerts.success('Medals saved', 1500);
 				});
 			});
 		} catch (error) {
@@ -97,6 +100,7 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 
 		components.get('nodebb-plugin-medals/delete-medal').off('click').on('click', (ev) => {
 			const $target = $(ev.target);
+			$target.prop('disabled', true);
 			const $item = $target.closest('[data-type="item"]');
 
 			bootbox.confirm('Are you sure you want to remove this medal?', function (confirm) {
@@ -107,6 +111,7 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 						api.delete('/plugins/medal', { uuid }, (err) => {
 							if (err) {
 								alerts.error(err.message, 2500);
+								$target.prop('disabled', false);
 								return;
 							}
 							alerts.success('Medal deleted', 1500);
