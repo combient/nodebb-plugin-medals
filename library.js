@@ -3,7 +3,6 @@
 const controllers = require('./lib/controllers');
 const api = require('./lib/api');
 const { routeHelpers } = require('./lib/nodebb');
-const MedalHelpers = require('./lib/helpers');
 
 const plugin = {};
 
@@ -14,13 +13,7 @@ plugin.init = async (params) => {
 	routeHelpers.setupPageRoute(router, '/user/:userslug/medals', middleware, [], controllers.renderMedalsPage);
 };
 
-plugin.addRoutes = async ({ router, middleware, helpers }) => {
-	routeHelpers.setupApiRoute(router, 'get', '/medals/:userslug', [], (req, res) => {
-		helpers.formatApiResponse(200, res, {
-			userslug: req.params.userslug,
-		});
-	});
-
+plugin.addRoutes = async ({ router, middleware }) => {
 	const adminMiddlewares = [
 		middleware.ensureLoggedIn,
 		middleware.admin.checkPrivileges,
@@ -28,19 +21,8 @@ plugin.addRoutes = async ({ router, middleware, helpers }) => {
 
 	// API routes
 	routeHelpers.setupApiRoute(router, 'get', '/medals', [], api.getMedals);
-	routeHelpers.setupApiRoute(router, 'put', '/medals', adminMiddlewares, async (req, res) => {
-		try {
-			const { medals } = req.body;
-
-			const savedMedals = await MedalHelpers.saveMedals(medals);
-
-			helpers.formatApiResponse(200, res, {
-				medals: savedMedals,
-			});
-		} catch (error) {
-			throw new Error(error.message);
-		}
-	});
+	routeHelpers.setupApiRoute(router, 'put', '/medals', adminMiddlewares, api.saveMedals);
+	routeHelpers.setupApiRoute(router, 'delete', '/medal', adminMiddlewares, api.deleteMedal);
 };
 
 plugin.addAdminNavigation = (header) => {

@@ -11,7 +11,7 @@
             </div>
             <div class="form-group">
                 <label>Class: </label>
-                <input placeholder="ex: .btn .btn-primary" name="className" value="{../className}" />
+                <input placeholder="ex: btn btn-primary" name="className" value="{../className}" />
             </div>
             <div class="form-group">
                 <label>Icon*: </label>

@@ -80,6 +80,7 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 
 	function setupInteraction() {
 		components.get('nodebb-plugin-medals/add-medal-btn').off('click').on('click', () => {
+			components.get('nodebb-plugin-medals/add-medal-btn').prop('disabled', true);
 			app.parseAndTranslate('admin/plugins/partials/medals-list/item', {
 				iconColor: '#ffffff',
 				medalColor: '#000000',
@@ -90,6 +91,7 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 				setupIconSelectors($listItem);
 				setupColorInputs();
 				setupInteraction();
+				components.get('nodebb-plugin-medals/add-medal-btn').prop('disabled', false);
 			});
 		});
 
@@ -99,7 +101,20 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 
 			bootbox.confirm('Are you sure you want to remove this medal?', function (confirm) {
 				if (confirm) {
-					$item.remove();
+					const uuid = $item.find('[name="uuid"]').val();
+
+					if (uuid) {
+						api.delete('/plugins/medal', { uuid }, (err) => {
+							if (err) {
+								alerts.error(err.message, 2500);
+								return;
+							}
+							alerts.success('Medal deleted', 1500);
+							$item.remove();
+						});
+					} else {
+						$item.remove();
+					}
 				}
 			});
 		});
