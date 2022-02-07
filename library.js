@@ -35,4 +35,22 @@ plugin.addAdminNavigation = (header) => {
 	return header;
 };
 
+plugin.addProfileItem = async (data) => {
+	data.links.push({
+		id: 'medals',
+		route: 'medals',
+		icon: 'fa-trophy',
+		name: 'Medals',
+		visibility: {
+			self: true,
+			other: true,
+			moderator: true,
+			globalMod: true,
+			admin: true,
+		},
+	});
+
+	return data;
+};
+
 module.exports = plugin;
