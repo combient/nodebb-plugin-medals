@@ -10,15 +10,16 @@
         &#assigned {
             min-height: 200px;
             border: 3px dashed transparent;
+            border-radius: 20px;
             transition: border ease-in-out 200ms, background-color ease-in-out 200ms;
             padding: 15px;
 
             &.active {
-                border-color: gray;
+                border-color: lightgray;
             }
 
             &.hover {
-                background-color: gray;
+                background-color: whitesmoke;
             }
         }
     }
@@ -29,6 +30,14 @@
         margin-right: 20px;
         margin-top: 20px;
         position: relative;
+        transition: background-color ease-in-out 150ms, box-shadow ease-in-out 150ms;
+        padding: 10px;
+        border-radius: 10px;
+
+        &.dragging {
+            background-color: #fff;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        }
 
         .name {
 

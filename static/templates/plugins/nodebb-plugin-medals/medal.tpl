@@ -1,4 +1,4 @@
-<div class="medal-container">
+<div class="medal-container" data-uuid="{../uuid}">
     <div class="medal {../className}"
         style="color: {../iconColor}; background-color: {../medalColor}">
         <i class="fa {../icon}"></i>

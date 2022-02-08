@@ -8,6 +8,9 @@ define('forum/plugins/nodebb-plugin-medals/medals', ['nodebb-plugin-medals/helpe
 			medalHelpers.loadJQueryUI(() => {
 				$('.medal-container').draggable({
 					revert: true,
+					classes: {
+						'ui-draggable-dragging': 'dragging',
+					},
 				});
 
 				$('#assigned').droppable({
@@ -17,8 +20,10 @@ define('forum/plugins/nodebb-plugin-medals/medals', ['nodebb-plugin-medals/helpe
 						'ui-droppable-hover': 'hover',
 					},
 					drop: function (event, ui) {
-						console.log('🚀 ~ file: medals.js ~ line 15 ~ event, ui', event, ui);
 						$(ui.draggable).detach().css({ top: 0, left: 0 }).appendTo(this);
+						const $droppedMedal = $(ui.draggable);
+						const uuid = $droppedMedal.data('uuid');
+						console.log(`Assign ${uuid} to ${ajaxify.data.uid}`);
 					},
 				});
 
@@ -29,8 +34,10 @@ define('forum/plugins/nodebb-plugin-medals/medals', ['nodebb-plugin-medals/helpe
 						'ui-droppable-hover': 'hover',
 					},
 					drop: function (event, ui) {
-						console.log('🚀 ~ file: medals.js ~ line 15 ~ event, ui', event, ui);
 						$(ui.draggable).detach().css({ top: 0, left: 0 }).appendTo(this);
+						const $droppedMedal = $(ui.draggable);
+						const uuid = $droppedMedal.data('uuid');
+						console.log(`Unassign ${uuid} from ${ajaxify.data.uid}`);
 					},
 				});
 			});
