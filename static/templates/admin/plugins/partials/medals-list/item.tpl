@@ -8,7 +8,7 @@
                 </tr>
                 <tr>
                     <td><label for="description">Description*: </label></td>
-                    <td><input placeholder="Description" name="description" value="{../description}" /></td>
+                    <td><textarea placeholder="Description" name="description">{../description}</textarea></td>
                 </tr>
                 <tr>
                     <td><label for="className">Classes: </label></td>

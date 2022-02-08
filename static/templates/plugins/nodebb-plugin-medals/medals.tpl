@@ -1,15 +1,15 @@
-<div class="account nodebb-plugin-medals">
+<div class="account">
 	<!-- IMPORT partials/account/header.tpl -->
 
-	<div class="row">
-		
+	<h2>Assigned medals</h2>
+	<div id="assigned" class="row medals-row">
 	</div>
     {{{ if isAdminOrGlobalMod}}}
-	<div class="row">
-		<h2>Unassigned medals</h2>
+	<h2>Unassigned medals</h2>
+	<div id="unassigned" class="row unassigned-medals medals-row">
         {{{ each unassignedMedals }}}
             <!-- IMPORT plugins/nodebb-plugin-medals/medal.tpl -->
         {{{ end }}}
 	</div>
-    {{{ endif isAdminOrGlobalMod}}}
+    {{{ endif }}}
 </div>

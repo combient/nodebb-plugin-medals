@@ -23,13 +23,14 @@
 		"static/style.less"
 	],
 	"scripts": [
-		"static/lib/main.js"
+		"static/lib/main.js",
+		"static/lib/helpers.js"
 	],
 	"acpScripts": [
 		"static/lib/admin.js"
 	],
 	"modules": {
-		"../client/medals.js": "./static/lib/medals.js"
+		"../client/plugins/nodebb-plugin-medals/medals.js": "./static/lib/medals.js"
 	},
 	"templates": "static/templates"
 }
