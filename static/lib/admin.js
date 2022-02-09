@@ -108,7 +108,7 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 					const uuid = $item.find('[name="uuid"]').val();
 
 					if (uuid) {
-						api.delete('/plugins/medal', { uuid }, (err) => {
+						api.delete('/plugins/medals', { uuid }, (err) => {
 							if (err) {
 								alerts.error(err.message, 2500);
 								$target.prop('disabled', false);

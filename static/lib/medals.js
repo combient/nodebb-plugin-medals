@@ -1,6 +1,6 @@
 'use strict';
 
-define('forum/plugins/nodebb-plugin-medals/medals', ['nodebb-plugin-medals/helpers'], function (medalHelpers) {
+define('forum/plugins/nodebb-plugin-medals/medals', ['api', 'alerts', 'nodebb-plugin-medals/helpers'], function (api, alerts, medalHelpers) {
 	const Medals = {};
 
 	Medals.init = () => {
@@ -24,6 +24,14 @@ define('forum/plugins/nodebb-plugin-medals/medals', ['nodebb-plugin-medals/helpe
 						const $droppedMedal = $(ui.draggable);
 						const uuid = $droppedMedal.data('uuid');
 						console.log(`Assign ${uuid} to ${ajaxify.data.uid}`);
+
+						api.post('/plugins/medals/user', { uid: ajaxify.data.uid, uuid }, (err) => {
+							if (err) {
+								$(ui.draggable).detach().css({ top: 0, left: 0 }).appendTo($('#unassigned'));
+								alerts.error('Something went wrong. Please check the console for details.', 2500);
+								console.error(err.message);
+							}
+						});
 					},
 				});
 
@@ -37,7 +45,14 @@ define('forum/plugins/nodebb-plugin-medals/medals', ['nodebb-plugin-medals/helpe
 						$(ui.draggable).detach().css({ top: 0, left: 0 }).appendTo(this);
 						const $droppedMedal = $(ui.draggable);
 						const uuid = $droppedMedal.data('uuid');
-						console.log(`Unassign ${uuid} from ${ajaxify.data.uid}`);
+
+						api.delete('/plugins/medals/user', { uid: ajaxify.data.uid, uuid }, (err) => {
+							if (err) {
+								$(ui.draggable).detach().css({ top: 0, left: 0 }).appendTo($('#assigned'));
+								alerts.error('Something went wrong. Please check the console for details.', 2500);
+								console.error(err.message);
+							}
+						});
 					},
 				});
 			});

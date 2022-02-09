@@ -22,7 +22,11 @@ plugin.addRoutes = async ({ router, middleware }) => {
 	// API routes
 	routeHelpers.setupApiRoute(router, 'get', '/medals', [], api.getMedals);
 	routeHelpers.setupApiRoute(router, 'put', '/medals', adminMiddlewares, api.saveMedals);
-	routeHelpers.setupApiRoute(router, 'delete', '/medal', adminMiddlewares, api.deleteMedal);
+	routeHelpers.setupApiRoute(router, 'delete', '/medals', adminMiddlewares, api.deleteMedal);
+
+	routeHelpers.setupApiRoute(router, 'get', '/medals/user/:userslug', [middleware.ensureLoggedIn], api.getUserMedals);
+	routeHelpers.setupApiRoute(router, 'post', '/medals/user', [middleware.ensureLoggedIn], api.assignMedal);
+	routeHelpers.setupApiRoute(router, 'delete', '/medals/user', [middleware.ensureLoggedIn], api.unassignMedal);
 };
 
 plugin.addAdminNavigation = (header) => {

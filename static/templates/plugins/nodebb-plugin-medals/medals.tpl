@@ -1,4 +1,4 @@
-<div class="account">
+<div class="account {{{ if isAdminOrGlobalMod }}}is-admin{{{ endif }}}">
 	<!-- IMPORT partials/account/header.tpl -->
 
 	<h2>Assigned medals</h2>
