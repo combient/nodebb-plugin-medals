@@ -23,7 +23,6 @@ define('forum/plugins/nodebb-plugin-medals/medals', ['api', 'alerts', 'nodebb-pl
 						$(ui.draggable).detach().css({ top: 0, left: 0 }).appendTo(this);
 						const $droppedMedal = $(ui.draggable);
 						const uuid = $droppedMedal.data('uuid');
-						console.log(`Assign ${uuid} to ${ajaxify.data.uid}`);
 
 						api.post('/plugins/medals/user', { uid: ajaxify.data.uid, uuid }, (err) => {
 							if (err) {

@@ -103,7 +103,10 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 			$target.prop('disabled', true);
 			const $item = $target.closest('[data-type="item"]');
 
-			bootbox.confirm('Are you sure you want to remove this medal?', function (confirm) {
+			bootbox.confirm(`
+				<p>Are you sure you want to remove this medal?</p>
+				<p>It will also be removed from everyone who received it.</p>
+				<p><br/><strong class="alert alert-danger">This action is not reversible!</strong></p>`, function (confirm) {
 				if (confirm) {
 					const uuid = $item.find('[name="uuid"]').val();
 
@@ -120,7 +123,7 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 					} else {
 						$item.remove();
 					}
-				}
+				} else $target.prop('disabled', false);
 			});
 		});
 	}
