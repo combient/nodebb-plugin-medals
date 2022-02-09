@@ -3,6 +3,7 @@
 const controllers = require('./lib/controllers');
 const api = require('./lib/api');
 const { routeHelpers } = require('./lib/nodebb');
+const medalHelpers = require('./lib/helpers');
 
 const plugin = {};
 
@@ -53,6 +54,14 @@ plugin.addProfileItem = async (data) => {
 			admin: true,
 		},
 	});
+
+	return data;
+};
+
+plugin.appendMedalsToProfile = async (data) => {
+	const { templateData } = data;
+
+	templateData.medals = await medalHelpers.getUserMedals(templateData.uid);
 
 	return data;
 };

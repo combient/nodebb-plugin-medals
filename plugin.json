@@ -14,6 +14,9 @@
 		},
 		{
 			"hook": "filter:user.profileMenu", "method": "addProfileItem"
+		},
+		{
+			"hook": "filter:account/profile.build", "method": "appendMedalsToProfile"
 		}
 	],
 	"staticDirs": {
