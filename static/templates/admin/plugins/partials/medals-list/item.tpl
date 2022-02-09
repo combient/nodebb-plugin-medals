@@ -29,13 +29,18 @@
                         <button type="button" class="medal-icon" style="
                             color: {{{ if ../iconColor }}}{../iconColor}{{{ else }}}#fff{{{ endif }}};
                             background-color: {{{ if ../medalColor }}}{../medalColor}{{{ else }}}#fff{{{ endif }}};
-                        "><i class="fa {{{ if ../icon }}}{../icon}{{{ else }}}fa-nbb-none{{{ endif }}}" value="{../icon}"></i></button>
+                        "><i class="fa {{{ if ../icon }}}{../icon}{{{ else }}}fa-nbb-none{{{ endif }}}"
+                                value="{../icon}"></i></button>
                     </td>
                     <td>
-                        <input data-settings="colorpicker" type="color" name="iconColor" title="Icon Color" class="form-control" placeholder="#fff" value="{{{ if ../iconColor }}}{../iconColor}{{{ else }}}#fff{{{ endif }}}" />
+                        <input data-settings="colorpicker" type="color" name="iconColor" title="Icon Color"
+                            class="form-control" placeholder="#fff"
+                            value="{{{ if ../iconColor }}}{../iconColor}{{{ else }}}#fff{{{ endif }}}" />
                     </td>
                     <td>
-                        <input data-settings="colorpicker" type="color" name="medalColor" title="Medal Color" class="form-control" placeholder="#000" value="{{{ if ../medalColor }}}{../medalColor}{{{ else }}}#fff{{{ endif }}}" />
+                        <input data-settings="colorpicker" type="color" name="medalColor" title="Medal Color"
+                            class="form-control" placeholder="#000"
+                            value="{{{ if ../medalColor }}}{../medalColor}{{{ else }}}#fff{{{ endif }}}" />
                     </td>
                 </tr>
             </table>
@@ -44,7 +49,31 @@
             <input type="hidden" name="uuid" value="{../uuid}" />
             <input type="hidden" name="addedByUid" value="{../addedByUid}" />
             <input type="hidden" name="timestamp" value="{../timestamp}" />
-            <button type="button" class="btn btn-danger" component="nodebb-plugin-medals/delete-medal"><i class="fa fa-trash"></i></button>
+            <button type="button" class="btn btn-danger" component="nodebb-plugin-medals/delete-medal"><i
+                    class="fa fa-trash"></i></button>
+        </div>
+    </div>
+    <div class="">
+        <div class="panel-group" id="user-accordion-{../uuid}" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="user-heading-{../uuid}">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#user-accordion-{../uuid}" href="#user-collapse-{../uuid}"
+                            aria-expanded="true" aria-controls="user-collapse-{../uuid}">
+                            Users
+                        </a>
+                    </h4>
+                </div>
+                <div id="user-collapse-{../uuid}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="user-heading-{../uuid}">
+                    <div class="panel-body">
+                        <div class="row">
+                            {{{ each ../users }}}
+                                <div class="col-xs-12 col-sm-6 col-md-4">{buildAvatar(users, "sm", true)} <a href="/user/{users.userslug}/medals">{users.displayname}</a></div>
+                            {{{ end }}}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </li>
