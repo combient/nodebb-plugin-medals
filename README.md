@@ -44,7 +44,7 @@ A number of endpoints are exposed for your custom code. Use it with the `api` mo
   - Currently available to admins and global mods
 
 ## Improvements
-I'm happy to receive suggestions on what I could do to improve on this plugin. These are the things that I wand to do or feel I need to do.
+I'm happy to receive suggestions on what I could do to improve on this plugin. These are the things that I want to do or feel I need to do.
 
 - Template page where every medal is available to see. Sort of a gallery.
 - Add WHEN a medal was awarded to a user. This is available but not implemented in UI.
