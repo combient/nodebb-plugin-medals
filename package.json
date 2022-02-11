@@ -25,6 +25,10 @@
       "git add"
     ]
   },
+  "author": {
+    "name": "vhendin",
+    "email": "magnus.vhendin@gmail.com"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/combient/nodebb-plugin-medals/issues"
