@@ -60,3 +60,4 @@ I'm happy to receive suggestions on what I could do to improve on this plugin. T
   - HTML elements, code snippets etc?
 - Notifiy a user when a medal has been assigned to them.
 - System event to trace medal actions. (Assign/unassign in particular)
+- Custom hooks when medal is assigned.
