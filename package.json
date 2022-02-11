@@ -10,8 +10,7 @@
   "keywords": [
     "nodebb",
     "plugin",
-    "medals",
-    "shell"
+    "medals"
   ],
   "husky": {
     "hooks": {
