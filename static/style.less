@@ -1,3 +1,66 @@
+.nodebb-plugin-medals.medal-container {
+    margin-right: 5px;
+    position: relative;
+    --xs-size: 20px;
+    --sm-size: 35px;
+    --md-size: 50px;
+    --lg-size: 75px;
+    --xl-size: 100px;
+
+    .medal {
+        background-color: #000;
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        display: inline-flex;
+        justify-content: center;
+        align-content: center;
+        flex-direction: column;
+        text-align: center;
+        width: var(--sm-size);
+        height: var(--sm-size);
+        font-size: calc(var(--sm-size) / 2);
+    }
+
+    &.xs {
+        .medal {
+            width: var(--xs-size);
+            height: var(--xs-size);
+            font-size: calc(var(--xs-size) / 2);
+        }
+    }
+
+    &.sm {
+        .medal {
+            width: var(--sm-size);
+            height: var(--sm-size);
+            font-size: calc(var(--sm-size) / 2);
+        }
+    }
+
+    &.md {
+        .medal {
+            width: var(--md-size);
+            height: var(--md-size);
+            font-size: calc(var(--md-size) / 2);
+        }
+    }
+    &.lg {
+        .medal {
+            width: var(--lg-size);
+            height: var(--lg-size);
+            font-size: calc(var(--lg-size) / 2);
+        }
+    }
+    &.xl {
+        .medal {
+            width: var(--xl-size);
+            height: var(--xl-size);
+            font-size: calc(var(--xl-size) / 2);
+        }
+    }
+}
+
 .page-user-medals {
     .is-admin {
         .medal-container {
@@ -28,7 +91,7 @@
         }
     }
 
-    .medal-container {
+    .nodebb-plugin-medals.medal-container {
         width: 200px;
         text-align: center;
         margin-right: 20px;
@@ -43,28 +106,11 @@
             box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
         }
 
-        .name {
+        .name {}
 
-        }
-        
         .description {
             text-align: left;
         }
-    }
-
-    .medal {
-        background-color: #000;
-        color: #fff;
-        border: none;
-        border-radius: 50%;
-        width: 100px;
-        height: 100px;
-        font-size: 50px;
-        display: inline-flex;
-        justify-content: center;
-        align-content: center;
-        flex-direction: column;
-        text-align: center;
     }
 }
 
