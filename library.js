@@ -66,4 +66,30 @@ plugin.appendMedalsToProfile = async (data) => {
 	return data;
 };
 
+plugin.getUserMedals = async (data) => {
+	data.medals = [];
+
+	const { uid } = data;
+
+	if (uid) {
+		const medals = await medalHelpers.getUserMedals(uid);
+		if (medals) data.medals = medals;
+	}
+
+	return data;
+};
+
+plugin.getUsersMedals = async (data) => {
+	data.medals = [];
+
+	const { uids } = data;
+
+	if (uids) {
+		const medals = await medalHelpers.getUsersMedals(uids);
+		if (medals) data.medals = medals;
+	}
+
+	return data;
+};
+
 module.exports = plugin;

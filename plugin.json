@@ -17,6 +17,12 @@
 		},
 		{
 			"hook": "filter:account/profile.build", "method": "appendMedalsToProfile"
+		},
+		{
+			"hook": "filter:nodebb-plugin-medals/get-user-medals", "method": "getUserMedals"
+		},
+		{
+			"hook": "filter:nodebb-plugin-medals/get-users-medals", "method": "getUsersMedals"
 		}
 	],
 	"staticDirs": {
