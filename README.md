@@ -22,7 +22,6 @@ A number of endpoints are exposed for your custom code. Use it with the `api` mo
   - Get all available medals
 - `api.get('/medals/user/:userslug', {}, (err, response) => {});`
   - Get all medals assigned to user
-
 ### Available only to admins (and sometimes global mods)
 - `api.put('/medals', { medals: [] }, (err, response) => {});`
   - Used from the admin panel to update med available medals. Should be used elsewhere with care.
@@ -43,6 +42,24 @@ A number of endpoints are exposed for your custom code. Use it with the `api` mo
   - Return successful or error
   - Currently available to admins and global mods
 
+## Templates
+
+There are a number of templates that can be utilized by your custom theme or plugin. They are:
+- `<!-- IMPORT plugins/nodebb-plugin-medals/medal-xs.tpl -->`
+- `<!-- IMPORT plugins/nodebb-plugin-medals/medal-sm.tpl -->`
+- `<!-- IMPORT plugins/nodebb-plugin-medals/medal-md.tpl -->`
+- `<!-- IMPORT plugins/nodebb-plugin-medals/medal-lg.tpl -->`
+- `<!-- IMPORT plugins/nodebb-plugin-medals/medal-xl.tpl -->`
+
+**And look like this:** ![Medal templates](images/medal-templates.png)
+
+They are best used with a list of medals, like this:
+```
+  {{{ each user.medals }}}
+    <!-- IMPORT plugins/nodebb-plugin-medals/medal-xs.tpl -->
+  {{{ end }}}
+```
+
 ## Improvements
 I'm happy to receive suggestions on what I could do to improve on this plugin. These are the things that I want to do or feel I need to do.
 
@@ -61,3 +78,4 @@ I'm happy to receive suggestions on what I could do to improve on this plugin. T
 - Notifiy a user when a medal has been assigned to them.
 - System event to trace medal actions. (Assign/unassign in particular)
 - Custom hooks when medal is assigned.
+- Allow users which of their medals will be displayed.

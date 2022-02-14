@@ -1,6 +1,7 @@
 .nodebb-plugin-medals.medal-container {
     margin-right: 5px;
     position: relative;
+    display: inline-block;
     --xs-size: 20px;
     --sm-size: 35px;
     --md-size: 50px;
@@ -20,40 +21,32 @@
         width: var(--sm-size);
         height: var(--sm-size);
         font-size: calc(var(--sm-size) / 2);
-    }
 
-    &.xs {
-        .medal {
+        &.xs {
             width: var(--xs-size);
             height: var(--xs-size);
             font-size: calc(var(--xs-size) / 2);
         }
-    }
 
-    &.sm {
-        .medal {
+        &.sm {
             width: var(--sm-size);
             height: var(--sm-size);
             font-size: calc(var(--sm-size) / 2);
         }
-    }
 
-    &.md {
-        .medal {
+        &.md {
             width: var(--md-size);
             height: var(--md-size);
             font-size: calc(var(--md-size) / 2);
         }
-    }
-    &.lg {
-        .medal {
+
+        &.lg {
             width: var(--lg-size);
             height: var(--lg-size);
             font-size: calc(var(--lg-size) / 2);
         }
-    }
-    &.xl {
-        .medal {
+
+        &.xl {
             width: var(--xl-size);
             height: var(--xl-size);
             font-size: calc(var(--xl-size) / 2);

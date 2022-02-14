@@ -1,5 +1,5 @@
-<div class="nodebb-plugin-medals medal-container md" data-uuid="{../uuid}">
-    <div title="{../name}"class="medal {../className}"
+<div class="nodebb-plugin-medals medal-container" data-uuid="{../uuid}">
+    <div title="{../name}"class="medal md {../className}"
         style="color: {../iconColor}; background-color: {../medalColor}">
         <i class="fa {../icon}"></i>
     </div>
