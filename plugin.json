@@ -41,5 +41,6 @@
 	"modules": {
 		"../client/plugins/nodebb-plugin-medals/medals.js": "./static/lib/medals.js"
 	},
-	"templates": "static/templates"
+	"templates": "static/templates",
+	"languages": "languages"
 }
