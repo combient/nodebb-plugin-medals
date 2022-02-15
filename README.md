@@ -75,6 +75,7 @@ I'm happy to receive suggestions on what I could do to improve on this plugin. T
 - Upload custom icons if the Font Awesome library feels too limited.
 - Custom content inside medal element?
   - HTML elements, code snippets etc?
+  - Images?
 - Notifiy a user when a medal has been assigned to them.
 - System event to trace medal actions. (Assign/unassign in particular)
 - Custom hooks when medal is assigned.
