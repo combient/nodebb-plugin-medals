@@ -2,7 +2,7 @@
 
 const controllers = require('./lib/controllers');
 const api = require('./lib/api');
-const { routeHelpers } = require('./lib/nodebb');
+const { routeHelpers, Events } = require('./lib/nodebb');
 const medalHelpers = require('./lib/helpers');
 
 const plugin = {};
@@ -12,6 +12,10 @@ plugin.init = async (params) => {
 
 	routeHelpers.setupAdminPageRoute(router, '/admin/plugins/medals', middleware, [], controllers.renderAdminPage);
 	routeHelpers.setupPageRoute(router, '/user/:userslug/medals', middleware, [], controllers.renderMedalsPage);
+
+	// Custom plugin events
+	Events.types.push('nodebb-plugin-medals:assign');
+	Events.types.push('nodebb-plugin-medals:unassign');
 };
 
 plugin.addRoutes = async ({ router, middleware }) => {
