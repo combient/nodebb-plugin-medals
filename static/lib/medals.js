@@ -29,7 +29,7 @@ define('forum/plugins/nodebb-plugin-medals/medals', ['api', 'alerts', 'nodebb-pl
 								$(ui.draggable).detach().css({ top: 0, left: 0 }).appendTo($('#unassigned'));
 								alerts.error('Something went wrong. Please check the console for details.', 2500);
 								console.error(err.message);
-							}
+							} else alerts.success('Medal successfully assigned.');
 						});
 					},
 				});
@@ -50,7 +50,7 @@ define('forum/plugins/nodebb-plugin-medals/medals', ['api', 'alerts', 'nodebb-pl
 								$(ui.draggable).detach().css({ top: 0, left: 0 }).appendTo($('#assigned'));
 								alerts.error('Something went wrong. Please check the console for details.', 2500);
 								console.error(err.message);
-							}
+							} else alerts.success('Medal successfully unassigned.');
 						});
 					},
 				});
