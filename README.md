@@ -42,6 +42,26 @@ A number of endpoints are exposed for your custom code. Use it with the `api` mo
   - Return successful or error
   - Currently available to admins and global mods
 
+## Custom hooks
+
+### Fetch medals of any user
+If you want to fetch the medals of a user in code, the easiest way is to import the `Plugin` module from NodeBB like this, `const Plugins = require.main.require('./src/plugins'),`. Give it an object with the requested uid, and wait for the response. If the user has any assigned medals a list will be returned. See below:
+```
+  const response = await Plugins.hooks.fire('filter:nodebb-plugin-medals/get-user-medals', { uid: user.uid });
+  
+	user.medals = response.medals;
+```
+
+### Fetch medals for a list of uids
+Like above but provide a list of user ids. Like this:
+```
+		const response = await Plugins.hooks.fire('filter:nodebb-plugin-medals/get-users-medals', { uids: listOfUids });
+
+    for (let i = 0; i < users.length; i++) {
+      users[i].medals = response.medals[i];
+    }
+
+```
 ## Templates
 
 There are a number of templates that can be utilized by your custom theme or plugin. They are:
@@ -63,19 +83,19 @@ They are best used with a list of medals, like this:
 ## Improvements
 I'm happy to receive suggestions on what I could do to improve on this plugin. These are the things that I want to do or feel I need to do.
 
-- Template page where every medal is available to see. Sort of a gallery.
+- Global template page where every medal is available to see. Sort of a gallery.
+  - Maybe also who it has been awarded to.
 - Add WHEN a medal was awarded to a user. This is available but not implemented in UI.
 - Allow users to show off their medals.
   - Next to their name in posts?
   - In their profile?
   - Page with recently assigned medals? Announcements.
+  - Which ones to show.
 - Create proper privileges for assigning medals.
   - Now only admins can create medals.
   - And global mods can assign/unassign.
 - Upload custom icons if the Font Awesome library feels too limited.
 - Custom content inside medal element?
-  - HTML elements, code snippets etc?
+  - HTML elements?
   - Images?
-- System event to trace medal actions. (Assign/unassign in particular)
 - Custom hooks when medal is assigned.
-- Allow users which of their medals will be displayed.
