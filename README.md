@@ -28,7 +28,7 @@ A number of endpoints are exposed for your custom code. Use it with the `api` mo
   - Returns the saved medals objects with `timestamp` and `uuid`.
   - Only available for admins
 - `api.delete('/medals', { uuid }, (err) => {});`
-  - Deletes a medal with provided `uid`
+  - Deletes a medal with provided `uuid`
   - Also deleted all associated assignments
   - Only available for admins
 - `api.post('/medals/user', { uuid, uid }, (err) => {});`
@@ -48,18 +48,18 @@ A number of endpoints are exposed for your custom code. Use it with the `api` mo
 If you want to fetch the medals of a user in code, the easiest way is to import the `Plugin` module from NodeBB like this, `const Plugins = require.main.require('./src/plugins'),`. Give it an object with the requested uid, and wait for the response. If the user has any assigned medals a list will be returned. See below:
 ```
   const response = await Plugins.hooks.fire('filter:nodebb-plugin-medals/get-user-medals', { uid: user.uid });
-  
-	user.medals = response.medals;
+
+  user.medals = response.medals;
 ```
 
 ### Fetch medals for a list of uids
 Like above but provide a list of user ids. Like this:
 ```
-		const response = await Plugins.hooks.fire('filter:nodebb-plugin-medals/get-users-medals', { uids: listOfUids });
+  const response = await Plugins.hooks.fire('filter:nodebb-plugin-medals/get-users-medals', { uids: listOfUids });
 
-    for (let i = 0; i < users.length; i++) {
-      users[i].medals = response.medals[i];
-    }
+  for (let i = 0; i < users.length; i++) {
+    users[i].medals = response.medals[i];
+  }
 
 ```
 ## Templates
