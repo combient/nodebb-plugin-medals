@@ -14,6 +14,13 @@
                     <td><label for="className">Classes: </label></td>
                     <td><input placeholder="ex: btn btn-primary" name="className" value="{../className}" /></td>
                 </tr>
+                <tr>
+                    <td><label for="grouping">Grouping: </label></td>
+                    <td>
+                        <input placeholder="ex: 'mvp' or 'silly'" class="grouping" name="grouping" value="{../grouping}" />
+                        <div class="options"></div>
+                    </td>
+                </tr>
             </table>
             <table class="form-group icon-color-table">
                 <thead>

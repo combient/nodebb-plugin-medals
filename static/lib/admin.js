@@ -1,7 +1,9 @@
 'use strict';
 
 define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'components', 'alerts', 'api'], function (settings, uploader, iconSelect, components, alerts, api) {
-	var ACP = {};
+	var ACP = {
+		groupings: [],
+	};
 
 	ACP.init = function () {
 		setupIconSelectors();
@@ -28,6 +30,7 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 			const iconColor = $item.find('[name="iconColor"]').val();
 			const uuid = $item.find('[name="uuid"]').val();
 			const timestamp = parseInt($item.find('[name="timestamp"]').val(), 10);
+			const grouping = $item.find('[name="grouping"]').val();
 
 			const medal = {
 				name,
@@ -39,6 +42,7 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 				addedByUid,
 				uuid,
 				timestamp,
+				grouping,
 			};
 
 			if (!name || !description || !icon) {
@@ -74,10 +78,12 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 					setupInteraction();
 					alerts.success('Medals saved', 1500);
 				});
+				$('#save').prop('disabled', false);
 			});
 		} catch (error) {
 			alerts.error(error.message, 2000);
 			console.error(error);
+			$('#save').prop('disabled', false);
 		}
 	}
 
@@ -125,6 +131,13 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 					}
 				} else $target.prop('disabled', false);
 			});
+		});
+
+		$('.list-group-item .grouping').off('keyup').on('keyup', (ev) => {
+			const $inputField = $(ev.target);
+			const value = $inputField.val();
+
+
 		});
 	}
 
