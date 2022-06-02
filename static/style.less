@@ -21,6 +21,7 @@
         width: var(--sm-size);
         height: var(--sm-size);
         font-size: calc(var(--sm-size) / 2);
+        position: relative;
 
         &.xs {
             width: var(--xs-size);
@@ -50,6 +51,15 @@
             width: var(--xl-size);
             height: var(--xl-size);
             font-size: calc(var(--xl-size) / 2);
+        }
+
+        .selection {
+            position: absolute;
+            font-size: 12px;
+
+            .selected {}
+
+            .not-selected {}
         }
     }
 
@@ -104,6 +114,26 @@
         }
 
         .name {}
+    }
+
+    #unassigned {
+        .btn-morph {
+            display: none;
+        }
+    }
+
+    #assigned {
+        .medal.self {
+            .btn-morph {
+                display: block;
+            }
+        }
+    }
+
+    .btn-morph {
+        display: none;
+        position: absolute;
+        transform: scale(0.3) translate(100%, -100%);
     }
 }
 

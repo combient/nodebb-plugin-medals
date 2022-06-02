@@ -56,6 +56,28 @@ define('forum/plugins/nodebb-plugin-medals/medals', ['api', 'alerts', 'nodebb-pl
 				});
 			});
 		}
+
+		if (ajaxify.data.isSelf) {
+			$('.btn-morph').off('click').on('click', function (ev) {
+				$(this).toggleClass('plus').toggleClass('heart');
+
+				if ($(this).find('b.drop').length === 0) {
+					$(this).prepend('<b class="drop"></b>');
+				}
+
+				var drop = $(this).find('b.drop').removeClass('animate');
+				var x = ev.pageX - (drop.width() / 2) - $(this).offset().left;
+				var y = ev.pageY - (drop.height() / 2) - $(this).offset().top;
+
+				drop.css({ top: y + 'px', left: x + 'px' }).addClass('animate');
+			});
+
+			$('.btn-morph').tooltip({
+				placement: $(this).attr('title-placement') || 'top',
+				title: $(this).attr('title'),
+				container: '#content',
+			});
+		}
 	};
 
 	return Medals;
