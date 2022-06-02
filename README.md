@@ -62,6 +62,12 @@ Like above but provide a list of user ids. Like this:
   }
 
 ```
+
+### Medal assigned/unassigned
+- `action:nodebb-plugin-medals:assigned`
+- `action:nodebb-plugin-medals:unassigned`
+
+Both these pass on the `uid` of the user, the `caller` uid and the medal data.
 ## Templates
 
 There are a number of templates that can be utilized by your custom theme or plugin. They are:
