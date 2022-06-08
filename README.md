@@ -100,8 +100,6 @@ I'm happy to receive suggestions on what I could do to improve on this plugin. T
 - Create proper privileges for assigning medals.
   - Now only admins can create medals.
   - And global mods can assign/unassign.
-- Upload custom icons if the Font Awesome library feels too limited.
 - Custom content inside medal element?
   - HTML elements?
   - Images?
-- Custom hooks when medal is assigned.

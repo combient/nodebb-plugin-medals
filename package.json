@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-medals",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "A NodeBB plugin which allows medals to be handed out to users.",
   "main": "library.js",
   "repository": {
