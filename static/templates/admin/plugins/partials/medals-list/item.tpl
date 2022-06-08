@@ -34,12 +34,13 @@
                 <tr>
                     <td>
                         <input type="hidden" value="{../icon}" name="icon" />
-                        <button type="button" class="medal-icon {{{ if ../customIcon }}} custom-icon {{{ endif }}}" style="
+                        <button type="button" class="medal-icon {{{ if ../customIcon }}} custom-icon {{{ endif }}} {{{ if ../noBackground }}} no-background {{{ endif }}}"
+                            style="
                             color: {{{ if ../iconColor }}}{../iconColor}{{{ else }}}#fff{{{ endif }}};
                             background-color: {{{ if ../medalColor }}}{../medalColor}{{{ else }}}#fff{{{ endif }}};
                         "><i class="fa {{{ if ../icon }}}{../icon}{{{ else }}}fa-nbb-none{{{ endif }}}"
                                 value="{../icon}"></i>
-                                <img src="{../customIcon}" /></button>
+                            <img src="{../customIcon}" /></button>
                     </td>
                     <td>
                         <input data-settings="colorpicker" type="color" name="iconColor" title="Icon Color"
@@ -52,6 +53,12 @@
                             value="{{{ if ../medalColor }}}{../medalColor}{{{ else }}}#fff{{{ endif }}}" />
                     </td>
                 </tr>
+                <tr class="no-background-row">
+                    <td colspan="3">
+                        <label for="noBackground">No background</label>
+                        <input type="checkbox" name="noBackground"  data-checked="{../noBackground}">
+                    </td>
+                </tr>
             </table>
             <table class="form-group custom-icon-table">
                 <tr class="icon-row">
@@ -59,8 +66,10 @@
                         <label for="customIcon">Custom icon:</label>
                         <input type="text" name="customIcon" class="custom-icon-url" value="{../customIcon}" />
                         <br />
-                        <button type="button" class="upload-custom-icon btn btn-success"><i class="fa fa-upload"></i> [[global:upload]]</button>
-                        <button type="button" class="delete-custom-icon btn btn-danger"><i class="fa fa-trash"></i> [[global:delete]]</button>
+                        <button type="button" class="upload-custom-icon btn btn-success"><i class="fa fa-upload"></i>
+                            [[global:upload]]</button>
+                        <button type="button" class="delete-custom-icon btn btn-danger"><i class="fa fa-trash"></i>
+                            [[global:delete]]</button>
                     </td>
                 </tr>
             </table>

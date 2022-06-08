@@ -32,6 +32,7 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 			const timestamp = parseInt($item.find('[name="timestamp"]').val(), 10);
 			const grouping = $item.find('[name="grouping"]').val();
 			const customIcon = $item.find('[name="customIcon"]').val();
+			const noBackground = $item.find('[name="noBackground"]').is(":checked");
 
 			const medal = {
 				name,
@@ -44,10 +45,11 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 				uuid,
 				timestamp,
 				grouping,
-				customIcon
+				customIcon,
+				noBackground
 			};
-
-			if (!name || !description || !icon) {
+			
+			if (!name || !description || (!icon && !customIcon)) {
 				throw new Error('Not all required fields are filled out.');
 			}
 
@@ -133,6 +135,21 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 					}
 				} else $target.prop('disabled', false);
 			});
+		});
+
+		const $checkboxes = $('[name="noBackground"]');
+
+		for(let i = 0; i < $checkboxes.length; i++) {
+			const $checkbox = $($checkboxes[i]);
+			if ($checkbox.data('checked')) $checkbox.attr('checked', $checkbox.data('checked'));
+		}
+
+		$checkboxes.off('change').on('change', (ev) => {
+			const $checkbox = $(ev.target);
+			const checked = $checkbox.is(":checked");
+            const $itemRow = $checkbox.closest('.list-group-item');
+			if (checked) $itemRow.find('.medal-icon').addClass('no-background');
+			else $itemRow.find('.medal-icon').removeClass('no-background');
 		});
 
 		$('.upload-custom-icon').on('click', function (ev) {
