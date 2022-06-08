@@ -1,7 +1,8 @@
 <div class="account {{{ if isAdminOrGlobalMod }}}is-admin{{{ endif }}}">
+    <h1 class="text-center">{title}</h1>
     <!-- IMPORT partials/account/header.tpl -->
 
-    <h2>Assigned medals</h2>
+    {{{ if isAdminOrGlobalMod }}}<h2>Assigned medals</h2>{{{ endif }}}
     <div id="assigned" class="row medals-row">
         {{{ each assignedMedals }}}
         <!-- IMPORT plugins/nodebb-plugin-medals/medal.tpl -->

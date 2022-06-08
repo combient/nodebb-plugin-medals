@@ -23,6 +23,36 @@
         font-size: calc(var(--sm-size) / 2);
         position: relative;
 
+        img {
+            display: none;
+        }
+
+        &.custom-icon {
+            i {
+                display: none;
+            }
+
+            img {
+                display: block;
+            }
+        }
+
+        img {
+            max-height: 65%;
+            max-width: 65%;
+            margin: 0 auto;
+        }
+
+        &.no-background {
+            background: none !important;
+            font-size: 30px;
+
+            img {
+                max-height: 100%;
+                max-width: 100%;
+            }
+        }
+
         &.xs {
             width: var(--xs-size);
             height: var(--xs-size);
@@ -139,6 +169,10 @@
 
 
 .page-admin-medals {
+    .medals-settings {
+        margin-bottom: 50px;
+    }
+
     .medal-icon {
         background-color: #000;
         color: #fff;
@@ -153,6 +187,36 @@
         flex-direction: column;
         text-align: center;
         cursor: pointer;
+
+        img {
+            display: none;
+        }
+
+        &.custom-icon {
+            i {
+                display: none;
+            }
+
+            img {
+                display: block;
+            }
+        }
+
+        &.no-background {
+            background: none !important;
+            font-size: 30px;
+
+            img {
+                max-height: 100%;
+                max-width: 100%;
+            }
+        }
+
+        img {
+            max-height: 80%;
+            max-width: 80%;
+            margin: 0 auto;
+        }
     }
 
     .info-table {
@@ -189,6 +253,12 @@
 
         [type="color"] {
             height: 50px;
+        }
+    }
+
+    .custom-icon-table {
+        .icon-row {
+            text-align: left;
         }
     }
 

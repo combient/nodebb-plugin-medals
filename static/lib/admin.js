@@ -31,6 +31,7 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 			const uuid = $item.find('[name="uuid"]').val();
 			const timestamp = parseInt($item.find('[name="timestamp"]').val(), 10);
 			const grouping = $item.find('[name="grouping"]').val();
+			const customIcon = $item.find('[name="customIcon"]').val();
 
 			const medal = {
 				name,
@@ -43,6 +44,7 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 				uuid,
 				timestamp,
 				grouping,
+				customIcon
 			};
 
 			if (!name || !description || !icon) {
@@ -133,11 +135,33 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 			});
 		});
 
-		$('.list-group-item .grouping').off('keyup').on('keyup', (ev) => {
-			const $inputField = $(ev.target);
-			const value = $inputField.val();
+		$('.upload-custom-icon').on('click', function (ev) {
+			const $self = $(ev.target);
+			uploader.show({
+				title: '[[admin/manage/uploads:upload-file]]',
+				route: config.relative_path + '/api/admin/upload/file',
+				params: { folder: 'system/nodebb-plugin-medals' },
+			}, function (url) {
+				const $itemRow = $self.closest('.list-group-item');
+				const $iconBtn = $itemRow.find('.medal-icon');
 
+				$itemRow.find('.custom-icon-url').val(url);
 
+				$iconBtn.addClass('custom-icon');
+				$iconBtn.find('img').attr('src', url);
+			});
+		});
+
+		$('.delete-custom-icon').on('click', function (ev) {
+			const $self = $(ev.target);
+
+			const $itemRow = $self.closest('.list-group-item');
+			const $iconBtn = $itemRow.find('.medal-icon');
+
+			$itemRow.find('.custom-icon-url').val('');
+
+			$iconBtn.removeClass('custom-icon');
+			$iconBtn.find('img').attr('src', '');
 		});
 	}
 

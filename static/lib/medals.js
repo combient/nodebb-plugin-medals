@@ -73,7 +73,7 @@ define('forum/plugins/nodebb-plugin-medals/medals', ['api', 'alerts', 'nodebb-pl
 			drop.css({ top: y + 'px', left: x + 'px' }).addClass('animate');
 		}
 
-		if (ajaxify.data.isSelf) {
+		if (ajaxify.data.canFavourite) {
 			$('.btn-morph').off('click').on('click', function (event) {
 				const $this = $(this);
 				const isFavourite = $this.hasClass('heart');
