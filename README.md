@@ -41,6 +41,12 @@ A number of endpoints are exposed for your custom code. Use it with the `api` mo
   - Required `uuid` and `uid`
   - Return successful or error
   - Currently available to admins and global mods
+- `api.post('/medals/user/favourite', { favourite: [tru/false], uuid, uid })`
+  - Add medal to users favourites
+  - Requires `favourite`, `uuid` and `uid`
+  - Return successful or error
+  - Currently available to admins
+  - Also used when a user favourites his/her own medals
 
 ## Custom hooks
 
@@ -101,5 +107,4 @@ I'm happy to receive suggestions on what I could do to improve on this plugin. T
   - Now only admins can create medals.
   - And global mods can assign/unassign.
 - Custom content inside medal element?
-  - HTML elements?
-  - Images?
+  - HTML elements and CSS?
