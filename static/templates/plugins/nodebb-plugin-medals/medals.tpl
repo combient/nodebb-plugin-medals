@@ -11,7 +11,7 @@
     {{{ if isAdminOrGlobalMod}}}
     <h2>Unassigned medals</h2>
     <div id="unassigned" class="row unassigned-medals medals-row">
-        {{{ each unassignedMedals }}}
+        {{{ each notAssignedMedals }}}
         <!-- IMPORT plugins/nodebb-plugin-medals/medal.tpl -->
         {{{ end }}}
     </div>
