@@ -69,6 +69,12 @@ plugin.appendMedalsToProfile = async (data) => {
 
 	templateData.medals = await medalHelpers.getUserMedals(templateData.uid);
 
+	templateData.medals = templateData.medals.sort((a, b) => {
+		if (a.favourite && !b.favourite) return -1;
+		else if (!a.favourite && b.favourite) return 1;
+		return 0;
+	});
+
 	return data;
 };
 
