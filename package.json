@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-medals",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "A NodeBB plugin which allows medals to be handed out to users.",
   "main": "library.js",
   "repository": {
@@ -34,7 +34,7 @@
   },
   "readmeFilename": "README.md",
   "nbbpm": {
-    "compatibility": "^1.19.1"
+    "compatibility": "^1.19.7"
   },
   "devDependencies": {
     "@commitlint/cli": "16.1.0",

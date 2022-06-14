@@ -9,7 +9,7 @@ define('forum/plugins/nodebb-plugin-medals/medals', ['api', 'alerts', 'nodebb-pl
 	};
 
 	Medals.init = () => {
-		if (ajaxify.data.isAdminOrGlobalMod) {
+		if (ajaxify.data.canAssign) {
 			medalHelpers.loadJQueryUI(() => {
 				$('.medal-container').draggable({
 					revert: true,

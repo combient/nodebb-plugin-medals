@@ -118,5 +118,5 @@ I'm happy to receive suggestions on what I could do to improve on this plugin. T
   - In their profile?
 - Page with recently assigned medals? Announcements.
 - Create proper privileges for assigning medals.
-  - Now only admins can create medals.
-  - And global mods can assign/unassign.
+  - Now only admins can create medals. Maybe a system to suggest medals?
+  - Privileges for individual users can be assigned to assign and favourite medals, but not yet groups.

@@ -104,4 +104,23 @@ plugin.getUsersMedals = async (data) => {
 	return data;
 };
 
+plugin.addPrivsHuman = async (data) => {
+	data.push({
+		name: '[[nodebb-plugin-medals:admin.assign-medals]]'
+	});
+
+	data.push({
+		name: '[[nodebb-plugin-medals:admin.favourite-medals]]'
+	});
+
+	return data;
+};
+
+plugin.addPrivs = async (data) => {
+	data.push('plugin_medals:assign');
+	data.push('plugin_medals:favourite');
+
+	return data;
+};
+
 module.exports = plugin;

@@ -1,3 +1,5 @@
 {
-  "assign-notification": "<strong>%1</strong> have assigned you the \"<strong>%2</strong>\" medal. Congratulations!"
+  "assign-notification": "<strong>%1</strong> have assigned you the \"<strong>%2</strong>\" medal. Congratulations!",
+  "admin.assign-medals": "Assign medals",
+  "admin.favourite-medals": "Favourite medals"
 }
