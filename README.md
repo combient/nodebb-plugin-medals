@@ -27,31 +27,29 @@ A number of endpoints are exposed for your custom code. Use it with the `api` mo
 - `api.get('/medals/user/:userslug', {}, (err, response) => {});`
   - Get all medals assigned to user
 
-### Available only to admins (and sometimes global mods)
+### Available only to admins
 
 - `api.put('/medals', { medals: [] }, (err, response) => {});`
-  - Used from the admin panel to update med available medals. Should be used elsewhere with care.
+  - Used from the admin panel to update available medals. Should be used elsewhere with care.
   - Returns the saved medals objects with `timestamp` and `uuid`.
-  - Only available for admins
 - `api.delete('/medals', { uuid }, (err) => {});`
   - Deletes a medal with provided `uuid`
-  - Also deleted all associated assignments
-  - Only available for admins
+  - Also deletes all associated assignments
+
+### Available to users who have been assigned certain privileges
+
 - `api.post('/medals/user', { uuid, uid }, (err) => {});`
   - Assigns medal to user
   - Required `uuid` and `uid`
   - Return successful or error
-  - Currently available to admins and global mods
 - `api.delete('/medals/user', { uuid, uid }, (err) => {});`
   - Unassigns medal from user
   - Required `uuid` and `uid`
   - Return successful or error
-  - Currently available to admins and global mods
-- `api.post('/medals/user/favourite', { favourite: [tru/false], uuid, uid })`
+- `api.post('/medals/user/favourite', { favourite: [true/false], uuid, uid })`
   - Add medal to users favourites
   - Requires `favourite`, `uuid` and `uid`
   - Return successful or error
-  - Currently available to admins
   - Also used when a user favourites his/her own medals
 
 ## Custom hooks
