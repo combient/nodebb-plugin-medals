@@ -46,7 +46,7 @@ A number of endpoints are exposed for your custom code. Use it with the `api` mo
   - Unassigns medal from user
   - Required `uuid` and `uid`
   - Return successful or error
-- `api.post('/medals/user/favourite', { favourite: [true/false], uuid, uid })`
+- `api.post('/medals/user/favourite', { favourite: true/false, uuid, uid })`
   - Add medal to users favourites
   - Requires `favourite`, `uuid` and `uid`
   - Return successful or error
