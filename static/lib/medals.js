@@ -28,10 +28,13 @@ define('forum/plugins/nodebb-plugin-medals/medals', ['api', 'alerts', 'nodebb-pl
 						$(ui.draggable).detach().css({ top: 0, left: 0 }).appendTo(this);
 						const $droppedMedal = $(ui.draggable);
 						const uuid = $droppedMedal.data('uuid');
+						$droppedMedal.find('.assigned').removeClass('hidden');
+						$droppedMedal.find('.date').html(new Date().toDateString());
 
 						api.post('/plugins/medals/user', { uid: ajaxify.data.uid, uuid }, (err) => {
 							if (err) {
 								$(ui.draggable).detach().css({ top: 0, left: 0 }).appendTo($('#unassigned'));
+								$droppedMedal.find('.date').addClass('hidden');
 								alerts.error('Something went wrong. Please check the console for details.', 2500);
 								console.error(err.message);
 							} else alerts.success('Medal successfully assigned.');
@@ -49,11 +52,13 @@ define('forum/plugins/nodebb-plugin-medals/medals', ['api', 'alerts', 'nodebb-pl
 						$(ui.draggable).detach().css({ top: 0, left: 0 }).appendTo(this);
 						const $droppedMedal = $(ui.draggable);
 						const uuid = $droppedMedal.data('uuid');
+						$droppedMedal.find('.assigned').addClass('hidden');
 
 						api.delete('/plugins/medals/user', { uid: ajaxify.data.uid, uuid }, (err) => {
 							if (err) {
 								$(ui.draggable).detach().css({ top: 0, left: 0 }).appendTo($('#assigned'));
 								alerts.error('Something went wrong. Please check the console for details.', 2500);
+								$droppedMedal.find('.assigned').removeClass('hidden');
 							} else {
 								alerts.success('Medal successfully unassigned.');
 								$droppedMedal.find('.btn-morph').removeClass('heart').addClass('plus');

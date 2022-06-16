@@ -20,6 +20,9 @@
             {../name}
         </h3>
     </div>
+    <div class="assigned{{{ if !../assignedISO }}} hidden {{{ endif ../assignedISO }}}">
+        <i class="date">{../assignedOnDate}</i>
+    </div>
     <div class="description">
         {../description}
     </div>
