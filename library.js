@@ -32,7 +32,7 @@ plugin.addRoutes = async ({ router, middleware }) => {
 	routeHelpers.setupApiRoute(router, 'get', '/medals/user/:userslug', [], api.getUserMedals);
 	routeHelpers.setupApiRoute(router, 'post', '/medals/user', [middleware.ensureLoggedIn], api.assignMedal);
 	routeHelpers.setupApiRoute(router, 'delete', '/medals/user', [middleware.ensureLoggedIn], api.unassignMedal);
-	
+
 	routeHelpers.setupApiRoute(router, 'post', '/medals/user/favourite', [middleware.ensureLoggedIn], api.setUserMedalFavourite);
 };
 
@@ -69,11 +69,13 @@ plugin.appendMedalsToProfile = async (data) => {
 
 	templateData.medals = await medalHelpers.getUserMedals(templateData.uid);
 
-	templateData.medals = templateData.medals.sort((a, b) => {
-		if (a.favourite && !b.favourite) return -1;
-		else if (!a.favourite && b.favourite) return 1;
-		return 0;
-	});
+	if (templateData.medals) {
+		templateData.medals = templateData.medals.sort((a, b) => {
+			if (a.favourite && !b.favourite) return -1;
+			else if (!a.favourite && b.favourite) return 1;
+			return 0;
+		});
+	}
 
 	return data;
 };
