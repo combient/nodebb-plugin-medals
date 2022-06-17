@@ -26,6 +26,8 @@ A number of endpoints are exposed for your custom code. Use it with the `api` mo
   - Get all available medals
 - `api.get('/medals/user/:userslug', {}, (err, response) => {});`
   - Get all medals assigned to user
+- `api.get('/plugins/medals/favourite/:uid', {}, (err, response= => {});`
+  - Get a users favourite medal
 
 ### Available only to admins
 
@@ -110,7 +112,6 @@ I'm happy to receive suggestions on what I could do to improve on this plugin. T
 
 - Global template page where every medal is available to see. Sort of a gallery.
   - Maybe also who it has been awarded to.
-- Add WHEN a medal was awarded to a user. This is available but not implemented in UI.
 - Allow users to show off their medals.
   - Next to their name in posts?
   - In their profile?

@@ -16,6 +16,8 @@ plugin.init = async (params) => {
 	// Custom plugin events
 	Events.types.push('nodebb-plugin-medals:assign');
 	Events.types.push('nodebb-plugin-medals:unassign');
+	Events.types.push('nodebb-plugin-medals:favourite');
+	Events.types.push('nodebb-plugin-medals:unfavourite');
 };
 
 plugin.addRoutes = async ({ router, middleware }) => {
@@ -28,12 +30,13 @@ plugin.addRoutes = async ({ router, middleware }) => {
 	routeHelpers.setupApiRoute(router, 'get', '/medals', [], api.getMedals);
 	routeHelpers.setupApiRoute(router, 'put', '/medals', adminMiddlewares, api.saveMedals);
 	routeHelpers.setupApiRoute(router, 'delete', '/medals', adminMiddlewares, api.deleteMedal);
-
+	
 	routeHelpers.setupApiRoute(router, 'get', '/medals/user/:userslug', [], api.getUserMedals);
 	routeHelpers.setupApiRoute(router, 'post', '/medals/user', [middleware.ensureLoggedIn], api.assignMedal);
 	routeHelpers.setupApiRoute(router, 'delete', '/medals/user', [middleware.ensureLoggedIn], api.unassignMedal);
-
+	
 	routeHelpers.setupApiRoute(router, 'post', '/medals/user/favourite', [middleware.ensureLoggedIn], api.setUserMedalFavourite);
+	routeHelpers.setupApiRoute(router, 'get', '/medals/favourite/:uid', [middleware.ensureLoggedIn], api.getUserFavouriteMedal);
 };
 
 plugin.addAdminNavigation = (header) => {

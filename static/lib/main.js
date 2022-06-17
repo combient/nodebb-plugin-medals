@@ -6,6 +6,7 @@ $(document).ready(function () {
     $(window)
         .off('action:ajaxify.end')
         .on('action:ajaxify.end', () => {
+            // SETUP TOOLTIPS
             const $medals = $('.nodebb-plugin-medals.medal-container .medal');
 
             for (let i = 0; i < $medals.length; i++) {
