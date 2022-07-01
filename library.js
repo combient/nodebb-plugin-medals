@@ -10,8 +10,8 @@ const plugin = {};
 plugin.init = async (params) => {
 	const { router, middleware } = params;
 
-	routeHelpers.setupAdminPageRoute(router, '/admin/plugins/medals', middleware, [], controllers.renderAdminPage);
-	routeHelpers.setupPageRoute(router, '/user/:userslug/medals', middleware, [], controllers.renderMedalsPage);
+	routeHelpers.setupAdminPageRoute(router, '/admin/plugins/medals', [], controllers.renderAdminPage);
+	routeHelpers.setupPageRoute(router, '/user/:userslug/medals', [], controllers.renderMedalsPage);
 
 	// Custom plugin events
 	Events.types.push('nodebb-plugin-medals:assign');
