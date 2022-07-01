@@ -30,11 +30,11 @@ plugin.addRoutes = async ({ router, middleware }) => {
 	routeHelpers.setupApiRoute(router, 'get', '/medals', [], api.getMedals);
 	routeHelpers.setupApiRoute(router, 'put', '/medals', adminMiddlewares, api.saveMedals);
 	routeHelpers.setupApiRoute(router, 'delete', '/medals', adminMiddlewares, api.deleteMedal);
-	
+
 	routeHelpers.setupApiRoute(router, 'get', '/medals/user/:userslug', [], api.getUserMedals);
 	routeHelpers.setupApiRoute(router, 'post', '/medals/user', [middleware.ensureLoggedIn], api.assignMedal);
 	routeHelpers.setupApiRoute(router, 'delete', '/medals/user', [middleware.ensureLoggedIn], api.unassignMedal);
-	
+
 	routeHelpers.setupApiRoute(router, 'post', '/medals/user/favourite', [middleware.ensureLoggedIn], api.setUserMedalFavourite);
 	routeHelpers.setupApiRoute(router, 'get', '/medals/favourite/:uid', [middleware.ensureLoggedIn], api.getUserFavouriteMedal);
 };
@@ -68,45 +68,59 @@ plugin.addProfileItem = async (data) => {
 };
 
 plugin.appendMedalsToProfile = async (data) => {
-	const { templateData } = data;
+	try {
+		const { templateData } = data;
 
-	templateData.medals = await medalHelpers.getUserMedals(templateData.uid);
+		templateData.medals = await medalHelpers.getUserMedals(templateData.uid);
 
-	if (templateData.medals) {
-		templateData.medals = templateData.medals.sort((a, b) => {
-			if (a.favourite && !b.favourite) return -1;
-			else if (!a.favourite && b.favourite) return 1;
-			return 0;
-		});
+		if (templateData.medals) {
+			templateData.medals = templateData.medals.sort((a, b) => {
+				if (a.favourite && !b.favourite) return -1;
+				else if (!a.favourite && b.favourite) return 1;
+				return 0;
+			});
+		}
+
+		return data;
+	} catch (error) {
+		console.error(error.message);
+		return data;
 	}
-
-	return data;
 };
 
 plugin.getUserMedals = async (data) => {
 	data.medals = [];
-
 	const { uid } = data;
 
-	if (uid) {
-		const medals = await medalHelpers.getUserMedals(uid);
-		if (medals) data.medals = medals;
-	}
+	try {
+		if (uid) {
+			const medals = await medalHelpers.getUserMedals(uid);
+			if (medals) data.medals = medals;
+		}
 
-	return data;
+		return data;
+	} catch (error) {
+		console.error(error.message);
+		return data;
+	}
 };
 
 plugin.getUsersMedals = async (data) => {
 	data.medals = [];
 
-	const { uids } = data;
+	try {
+		const { uids } = data;
 
-	if (uids) {
-		const medals = await medalHelpers.getUsersMedals(uids);
-		if (medals) data.medals = medals;
+		if (uids) {
+			const medals = await medalHelpers.getUsersMedals(uids);
+			if (medals) data.medals = medals;
+		}
+
+		return data;
+	} catch (error) {
+		console.error(error.message);
+		return data;
 	}
-
-	return data;
 };
 
 plugin.addPrivsHuman = async (data) => {
