@@ -21,6 +21,37 @@
         width: var(--sm-size);
         height: var(--sm-size);
         font-size: calc(var(--sm-size) / 2);
+        position: relative;
+
+        img {
+            display: none;
+        }
+
+        &.custom-icon {
+            i {
+                display: none;
+            }
+
+            img {
+                display: block;
+            }
+        }
+
+        img {
+            max-height: 65%;
+            max-width: 65%;
+            margin: 0 auto;
+        }
+
+        &.no-background {
+            background: none !important;
+            font-size: 30px;
+
+            img {
+                max-height: 100%;
+                max-width: 100%;
+            }
+        }
 
         &.xs {
             width: var(--xs-size);
@@ -51,6 +82,15 @@
             height: var(--xl-size);
             font-size: calc(var(--xl-size) / 2);
         }
+
+        .selection {
+            position: absolute;
+            font-size: 12px;
+
+            .selected {}
+
+            .not-selected {}
+        }
     }
 
     &.modal-unfocused {
@@ -59,7 +99,7 @@
 }
 
 .page-user-medals {
-    .is-admin {
+    .can-assign {
         .medal-container {
             cursor: move;
         }
@@ -98,16 +138,43 @@
         border-radius: 10px;
 
         &.dragging {
+            z-index: 10;
             background-color: #fff;
             box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
         }
 
         .name {}
+
+        .assigned {}
+    }
+
+    #unassigned {
+        .btn-morph {
+            display: none;
+        }
+    }
+
+    #assigned {
+        .medal.self {
+            .btn-morph {
+                display: block;
+            }
+        }
+    }
+
+    .btn-morph {
+        display: none;
+        position: absolute;
+        transform: scale(0.3) translate(100%, -100%);
     }
 }
 
 
 .page-admin-medals {
+    .medals-settings {
+        margin-bottom: 50px;
+    }
+
     .medal-icon {
         background-color: #000;
         color: #fff;
@@ -122,6 +189,36 @@
         flex-direction: column;
         text-align: center;
         cursor: pointer;
+
+        img {
+            display: none;
+        }
+
+        &.custom-icon {
+            i {
+                display: none;
+            }
+
+            img {
+                display: block;
+            }
+        }
+
+        &.no-background {
+            background: none !important;
+            font-size: 30px;
+
+            img {
+                max-height: 100%;
+                max-width: 100%;
+            }
+        }
+
+        img {
+            max-height: 80%;
+            max-width: 80%;
+            margin: 0 auto;
+        }
     }
 
     .info-table {
@@ -158,6 +255,22 @@
 
         [type="color"] {
             height: 50px;
+        }
+
+        .no-background-row {
+            td {
+                text-align: left;
+
+                input[type="checkbox"] {
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+
+    .custom-icon-table {
+        .icon-row {
+            text-align: left;
         }
     }
 

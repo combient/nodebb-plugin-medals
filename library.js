@@ -16,6 +16,8 @@ plugin.init = async (params) => {
 	// Custom plugin events
 	Events.types.push('nodebb-plugin-medals:assign');
 	Events.types.push('nodebb-plugin-medals:unassign');
+	Events.types.push('nodebb-plugin-medals:favourite');
+	Events.types.push('nodebb-plugin-medals:unfavourite');
 };
 
 plugin.addRoutes = async ({ router, middleware }) => {
@@ -28,10 +30,13 @@ plugin.addRoutes = async ({ router, middleware }) => {
 	routeHelpers.setupApiRoute(router, 'get', '/medals', [], api.getMedals);
 	routeHelpers.setupApiRoute(router, 'put', '/medals', adminMiddlewares, api.saveMedals);
 	routeHelpers.setupApiRoute(router, 'delete', '/medals', adminMiddlewares, api.deleteMedal);
-
+	
 	routeHelpers.setupApiRoute(router, 'get', '/medals/user/:userslug', [], api.getUserMedals);
 	routeHelpers.setupApiRoute(router, 'post', '/medals/user', [middleware.ensureLoggedIn], api.assignMedal);
 	routeHelpers.setupApiRoute(router, 'delete', '/medals/user', [middleware.ensureLoggedIn], api.unassignMedal);
+	
+	routeHelpers.setupApiRoute(router, 'post', '/medals/user/favourite', [middleware.ensureLoggedIn], api.setUserMedalFavourite);
+	routeHelpers.setupApiRoute(router, 'get', '/medals/favourite/:uid', [middleware.ensureLoggedIn], api.getUserFavouriteMedal);
 };
 
 plugin.addAdminNavigation = (header) => {
@@ -67,6 +72,14 @@ plugin.appendMedalsToProfile = async (data) => {
 
 	templateData.medals = await medalHelpers.getUserMedals(templateData.uid);
 
+	if (templateData.medals) {
+		templateData.medals = templateData.medals.sort((a, b) => {
+			if (a.favourite && !b.favourite) return -1;
+			else if (!a.favourite && b.favourite) return 1;
+			return 0;
+		});
+	}
+
 	return data;
 };
 
@@ -92,6 +105,25 @@ plugin.getUsersMedals = async (data) => {
 		const medals = await medalHelpers.getUsersMedals(uids);
 		if (medals) data.medals = medals;
 	}
+
+	return data;
+};
+
+plugin.addPrivsHuman = async (data) => {
+	data.push({
+		name: '[[nodebb-plugin-medals:admin.assign-medals]]'
+	});
+
+	data.push({
+		name: '[[nodebb-plugin-medals:admin.favourite-medals]]'
+	});
+
+	return data;
+};
+
+plugin.addPrivs = async (data) => {
+	data.push('plugin_medals:assign');
+	data.push('plugin_medals:favourite');
 
 	return data;
 };

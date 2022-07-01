@@ -1,7 +1,9 @@
 'use strict';
 
 define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'components', 'alerts', 'api'], function (settings, uploader, iconSelect, components, alerts, api) {
-	var ACP = {};
+	var ACP = {
+		groupings: [],
+	};
 
 	ACP.init = function () {
 		setupIconSelectors();
@@ -28,6 +30,9 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 			const iconColor = $item.find('[name="iconColor"]').val();
 			const uuid = $item.find('[name="uuid"]').val();
 			const timestamp = parseInt($item.find('[name="timestamp"]').val(), 10);
+			const grouping = $item.find('[name="grouping"]').val();
+			const customIcon = $item.find('[name="customIcon"]').val();
+			const noBackground = $item.find('[name="noBackground"]').is(":checked");
 
 			const medal = {
 				name,
@@ -39,9 +44,12 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 				addedByUid,
 				uuid,
 				timestamp,
+				grouping,
+				customIcon,
+				noBackground
 			};
-
-			if (!name || !description || !icon) {
+			
+			if (!name || !description || (!icon && !customIcon)) {
 				throw new Error('Not all required fields are filled out.');
 			}
 
@@ -74,10 +82,12 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 					setupInteraction();
 					alerts.success('Medals saved', 1500);
 				});
+				$('#save').prop('disabled', false);
 			});
 		} catch (error) {
 			alerts.error(error.message, 2000);
 			console.error(error);
+			$('#save').prop('disabled', false);
 		}
 	}
 
@@ -125,6 +135,50 @@ define('admin/plugins/medals', ['settings', 'uploader', 'iconSelect', 'component
 					}
 				} else $target.prop('disabled', false);
 			});
+		});
+
+		const $checkboxes = $('[name="noBackground"]');
+
+		for(let i = 0; i < $checkboxes.length; i++) {
+			const $checkbox = $($checkboxes[i]);
+			if ($checkbox.data('checked')) $checkbox.attr('checked', $checkbox.data('checked'));
+		}
+
+		$checkboxes.off('change').on('change', (ev) => {
+			const $checkbox = $(ev.target);
+			const checked = $checkbox.is(":checked");
+            const $itemRow = $checkbox.closest('.list-group-item');
+			if (checked) $itemRow.find('.medal-icon').addClass('no-background');
+			else $itemRow.find('.medal-icon').removeClass('no-background');
+		});
+
+		$('.upload-custom-icon').on('click', function (ev) {
+			const $self = $(ev.target);
+			uploader.show({
+				title: '[[admin/manage/uploads:upload-file]]',
+				route: config.relative_path + '/api/admin/upload/file',
+				params: { folder: 'system/nodebb-plugin-medals' },
+			}, function (url) {
+				const $itemRow = $self.closest('.list-group-item');
+				const $iconBtn = $itemRow.find('.medal-icon');
+
+				$itemRow.find('.custom-icon-url').val(url);
+
+				$iconBtn.addClass('custom-icon');
+				$iconBtn.find('img').attr('src', url);
+			});
+		});
+
+		$('.delete-custom-icon').on('click', function (ev) {
+			const $self = $(ev.target);
+
+			const $itemRow = $self.closest('.list-group-item');
+			const $iconBtn = $itemRow.find('.medal-icon');
+
+			$itemRow.find('.custom-icon-url').val('');
+
+			$iconBtn.removeClass('custom-icon');
+			$iconBtn.find('img').attr('src', '');
 		});
 	}
 

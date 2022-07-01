@@ -23,6 +23,12 @@
 		},
 		{
 			"hook": "filter:nodebb-plugin-medals/get-users-medals", "method": "getUsersMedals"
+		},
+		{
+			"hook": "filter:privileges.global.list_human", "method": "addPrivsHuman"
+		},
+		{
+			"hook": "filter:privileges.global.list", "method": "addPrivs"
 		}
 	],
 	"staticDirs": {
