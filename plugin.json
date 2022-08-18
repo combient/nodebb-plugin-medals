@@ -38,14 +38,12 @@
 		"static/style.less"
 	],
 	"scripts": [
-		"static/lib/main.js",
-		"static/lib/helpers.js"
-	],
-	"acpScripts": [
-		"static/lib/admin.js"
+		"static/lib/main.js"
 	],
 	"modules": {
-		"../client/plugins/nodebb-plugin-medals/medals.js": "./static/lib/medals.js"
+		"../client/plugins/nodebb-plugin-medals/medals.js": "./static/lib/medals.js",
+		"nodebb-plugin-medals/helpers": "static/lib/helpers.js",
+		"../admin/plugins/medals.js": "static/lib/admin.js"
 	},
 	"templates": "static/templates",
 	"languages": "languages"
